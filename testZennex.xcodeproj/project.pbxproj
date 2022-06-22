@@ -15,7 +15,11 @@
 		5C1E58FB28575E6600139FBC /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E58FA28575E6600139FBC /* APIManager.swift */; };
 		5C1E58FE2858596A00139FBC /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E58FD2858596A00139FBC /* DetailView.swift */; };
 		5C1E59022859F2C200139FBC /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E59012859F2C200139FBC /* ViewModel.swift */; };
+		5C485F0E2862D9E100B41838 /* HelveticaNowDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C485F0D2862D9E100B41838 /* HelveticaNowDisplay-Bold.ttf */; };
+		5C69703728621ED000570D1D /* HelveticaNowDisplay.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C69703628621ED000570D1D /* HelveticaNowDisplay.ttf */; };
 		5C842101285FA8560096C007 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C842100285FA8560096C007 /* Extensions.swift */; };
+		5CA4EFD12861E23D00454714 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA4EFD02861E23D00454714 /* SceneDelegate.swift */; };
+		5CA4EFD32862112200454714 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA4EFD22862112200454714 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +33,11 @@
 		5C1E58FD2858596A00139FBC /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		5C1E59012859F2C200139FBC /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		5C1E5903285C38EE00139FBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5C485F0D2862D9E100B41838 /* HelveticaNowDisplay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HelveticaNowDisplay-Bold.ttf"; sourceTree = "<group>"; };
+		5C69703628621ED000570D1D /* HelveticaNowDisplay.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNowDisplay.ttf; sourceTree = "<group>"; };
 		5C842100285FA8560096C007 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		5CA4EFD02861E23D00454714 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		5CA4EFD22862112200454714 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,12 +72,14 @@
 			children = (
 				5C1E58F928575E4300139FBC /* APIManager */,
 				5C1E58FF2859F28A00139FBC /* Model */,
-				5C1E58FC2858593800139FBC /* View */,
+				5C1E58FC2858593800139FBC /* Views */,
 				5C1E59002859F29B00139FBC /* ViewModels */,
 				5C842102285FA9750096C007 /* Helpers */,
 				5C1E58EA2856F1F200139FBC /* Assets.xcassets */,
 				5C1E5903285C38EE00139FBC /* Info.plist */,
 				5C1E58E62856F1F000139FBC /* testZennexApp.swift */,
+				5CA4EFD22862112200454714 /* AppDelegate.swift */,
+				5CA4EFD02861E23D00454714 /* SceneDelegate.swift */,
 				5C1E58EC2856F1F200139FBC /* Preview Content */,
 			);
 			path = testZennex;
@@ -91,13 +101,14 @@
 			path = APIManager;
 			sourceTree = "<group>";
 		};
-		5C1E58FC2858593800139FBC /* View */ = {
+		5C1E58FC2858593800139FBC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5C69703328621D5900570D1D /* Fonts */,
 				5C1E58E82856F1F000139FBC /* MainView.swift */,
 				5C1E58FD2858596A00139FBC /* DetailView.swift */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		5C1E58FF2859F28A00139FBC /* Model */ = {
@@ -114,6 +125,15 @@
 				5C1E59012859F2C200139FBC /* ViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		5C69703328621D5900570D1D /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				5C485F0D2862D9E100B41838 /* HelveticaNowDisplay-Bold.ttf */,
+				5C69703628621ED000570D1D /* HelveticaNowDisplay.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		5C842102285FA9750096C007 /* Helpers */ = {
@@ -183,6 +203,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C1E58EE2856F1F200139FBC /* Preview Assets.xcassets in Resources */,
+				5C485F0E2862D9E100B41838 /* HelveticaNowDisplay-Bold.ttf in Resources */,
+				5C69703728621ED000570D1D /* HelveticaNowDisplay.ttf in Resources */,
 				5C1E58EB2856F1F200139FBC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -196,9 +218,11 @@
 			files = (
 				5C1E58F52857044400139FBC /* JournalModel.swift in Sources */,
 				5C1E58FE2858596A00139FBC /* DetailView.swift in Sources */,
+				5CA4EFD32862112200454714 /* AppDelegate.swift in Sources */,
 				5C1E58E92856F1F000139FBC /* MainView.swift in Sources */,
 				5C842101285FA8560096C007 /* Extensions.swift in Sources */,
 				5C1E58FB28575E6600139FBC /* APIManager.swift in Sources */,
+				5CA4EFD12861E23D00454714 /* SceneDelegate.swift in Sources */,
 				5C1E58E72856F1F000139FBC /* testZennexApp.swift in Sources */,
 				5C1E59022859F2C200139FBC /* ViewModel.swift in Sources */,
 			);
@@ -257,7 +281,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -311,7 +335,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -338,6 +362,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -368,6 +393,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

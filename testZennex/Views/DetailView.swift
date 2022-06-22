@@ -19,7 +19,7 @@ struct DetailView: View {
                 Text(dayOfMonth)
                 Text(dayOfWeek)
             }
-            Text(dailyScore + "points")
+            Text(dailyScore + " points")
         }
     }
 }
