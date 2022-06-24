@@ -56,7 +56,7 @@ struct JournalRowViewModel: Hashable {
     
     var dailyScore: String? {
         guard let score = message.dailyScore else { return nil }
-        return score > 0 ? "+" + String(Int(score)) : String(Int(score))
+        return score > 0 ? "+" + String(Int(score)) + " points" : String(Int(score)) + " points"
     }
     
     var colorFromDailyRating: Color {

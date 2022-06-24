@@ -26,15 +26,18 @@ struct MainView: View {
                                 dailyScore: item.dailyScore ?? "")
                             ) {
                                 if item.isToday {
-                                    TodayRowView(viewModel: item)
+                                    VStack {
+                                        MainRowView(viewModel: item)
+                                        startJournalView
+                                    }
                                 } else {
                                     MainRowView(viewModel: item)
                                 }
                             }
                         }
                         .foregroundColor(.black)
-                        .padding(15)
                     }
+                    .padding()
                 }
             }
             .navigationBarTitle("Journaling", displayMode: .inline)
@@ -47,6 +50,16 @@ struct MainView: View {
     private var noDataRowView: some View {
         List {
             Text("Нет данных")
+        }
+    }
+    
+    private var startJournalView: some View {
+        HStack(alignment: .center) {
+            Text("Start today's journal")
+                .frame(width: 280, height: 40, alignment: .center)
+                .foregroundColor(Color(hex: "#F6F6F6"))
+                .background(Color(hex: "#313841"))
+                .cornerRadius(8)
         }
     }
 }
@@ -98,16 +111,18 @@ struct TodayRowView: View {
                 
                 Text(viewModel.dayOfMonth ?? "")
                     .font(.custom("HelveticaNowDisplay-Bold", size: 16))
+                
                 Text("Today")
             }
             
-            Text("Start today's journal")
-            .frame(width: 240, height: 40, alignment: .center)
-            .foregroundColor(Color(hex: "#F6F6F6"))
-            .background(Color(hex: "#313841"))
-            .cornerRadius(8)
+            HStack(alignment: .center) {
+                Text("Start today's journal")
+                    .frame(width: 240, height: 40, alignment: .center)
+                    .foregroundColor(Color(hex: "#F6F6F6"))
+                    .background(Color(hex: "#313841"))
+                    .cornerRadius(8)
+            }
         }
-        Spacer()
     }
 }
 
@@ -134,7 +149,7 @@ struct MainRowView: View {
                 Spacer(minLength: 45)
                 
                 VStack(alignment: .leading) {
-                    Text((viewModel.dailyScore ?? "") + " points")
+                    Text(viewModel.dailyScore ?? "")
                         .font(.custom("HelveticaNowDisplay", size: 12))
                         .foregroundColor(Color(hex: "#AAB2BB"))
                     
