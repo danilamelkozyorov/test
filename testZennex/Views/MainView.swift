@@ -9,43 +9,38 @@ import SwiftUI
 
 struct MainView: View {
     @ObservedObject var journalListViewModel = JournalViewModel()
-    
+        
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                monthScrollView
+                MonthsView(viewModel: journalListViewModel)
                 
                 if journalListViewModel.currentMonthJournal.isEmpty {
                     noDataRowView
                 } else {
-                    List(journalListViewModel.currentMonthJournal, id: \.self) { message in
-                        if message.isToday {
-                            TodayRowView(viewModel: message)
-                        } else {
-                            MainRowView(viewModel: message)
+                    ScrollView(.vertical, showsIndicators: false) {
+                        ForEach(journalListViewModel.currentMonthJournal, id: \.self) { item in
+                            NavigationLink(destination: DetailView(
+                                dayOfWeek: item.dayOfWeek ?? "",
+                                dayOfMonth: item.dayOfMonth ?? "",
+                                dailyScore: item.dailyScore ?? "")
+                            ) {
+                                if item.isToday {
+                                    TodayRowView(viewModel: item)
+                                } else {
+                                    MainRowView(viewModel: item)
+                                }
+                            }
                         }
+                        .foregroundColor(.black)
+                        .padding(15)
                     }
-                    .padding(-20)
                 }
             }
             .navigationBarTitle("Journaling", displayMode: .inline)
         }
         .onAppear {
             self.journalListViewModel.fetchListJournal(journalListViewModel.currentMonth)
-        }
-    }
-        
-    private var monthScrollView: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                ForEach(journalListViewModel.months, id: \.self) { month in
-                    Button(month) {
-                        self.journalListViewModel.fetchListJournal(month.lowercased())
-                    }
-                    .foregroundColor(.black)
-                    .padding()
-                }
-            }
         }
     }
     
@@ -56,12 +51,47 @@ struct MainView: View {
     }
 }
 
+struct MonthView: View {
+    var month : String
+    var isSelected : Bool
+    
+    var body: some View {
+        Text(month)
+            .font(.custom(
+                (isSelected ? "HelveticaNowDisplay-Bold" : "HelveticaNowDisplay"), size: 14)
+            )
+            .padding()
+    }
+}
+
+struct MonthsView: View {
+    var viewModel: JournalViewModel
+    @State var selectedItem = 0
+
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+                ForEach(0..<viewModel.months.count, id: \.self) { item in
+                    MonthView(
+                        month: viewModel.months[item],
+                        isSelected: item == selectedItem ? true : false
+                    )
+                    .onTapGesture {
+                        selectedItem = item
+                        viewModel.fetchListJournal(viewModel.months[item].lowercased())
+                    }
+                }
+            }
+        }
+    }
+}
+
 struct TodayRowView: View {
     var viewModel: JournalRowViewModel
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack(alignment: .center) {
+            HStack(alignment: .center, spacing: 8) {
                 RoundedRectangle(cornerRadius: 2)
                     .fill(viewModel.colorFromDailyRating)
                     .frame(width: 8, height: 24)
@@ -71,22 +101,13 @@ struct TodayRowView: View {
                 Text("Today")
             }
             
-            ZStack(alignment: .center) {
-                NavigationLink(
-                    destination: DetailView(dayOfWeek: "Здесь мог быть textfield для набора текста",
-                                            dayOfMonth: "",
-                                            dailyScore: "0")
-                ) { EmptyView() }
-                
-                Button("Start today's journal") {
-                    print("start writing")
-                }
-                .frame(width: 240, height: 40, alignment: .center)
-                .foregroundColor(Color(hex: "#F6F6F6"))
-                .background(Color(hex: "#313841"))
-                .cornerRadius(8)
-            }
+            Text("Start today's journal")
+            .frame(width: 240, height: 40, alignment: .center)
+            .foregroundColor(Color(hex: "#F6F6F6"))
+            .background(Color(hex: "#313841"))
+            .cornerRadius(8)
         }
+        Spacer()
     }
 }
 
@@ -94,28 +115,25 @@ struct MainRowView: View {
     var viewModel: JournalRowViewModel
 
     var body: some View {
-        ZStack {
-            NavigationLink(destination: DetailView(
-                dayOfWeek: viewModel.dayOfWeek ?? "",
-                dayOfMonth: viewModel.dayOfMonth ?? "",
-                dailyScore: viewModel.dailyScore ?? "")
-            ) {
-                EmptyView()
-            }
-            HStack(alignment: .top) {
+        VStack(alignment: .leading) {
+            HStack(alignment: .center, spacing: 8) {
                 RoundedRectangle(cornerRadius: 2)
                     .fill(viewModel.colorFromDailyRating)
                     .frame(width: 8, height: 24)
-
+                
                 Text(viewModel.dayOfMonth ?? "")
                     .font(.custom("HelveticaNowDisplay-Bold", size: 16))
                     .fontWeight(.bold)
                 
+                Text(viewModel.dayOfWeek ?? "")
+                    .font(.custom("HelveticaNowDisplay", size: 16))
+                    .fontWeight(.light)
+            }
+            
+            HStack {
+                Spacer(minLength: 45)
+                
                 VStack(alignment: .leading) {
-                    Text(viewModel.dayOfWeek ?? "")
-                        .font(.custom("HelveticaNowDisplay", size: 16))
-                        .fontWeight(.light)
-                    
                     Text((viewModel.dailyScore ?? "") + " points")
                         .font(.custom("HelveticaNowDisplay", size: 12))
                         .foregroundColor(Color(hex: "#AAB2BB"))
@@ -125,6 +143,7 @@ struct MainRowView: View {
                             ForEach(viewModel.photoLinks, id: \.self) { index in
                                 CustomImageView(urlString: index)
                                     .clipped()
+                                    .cornerRadius(4)
                             }
                         }
                     }
@@ -153,9 +172,4 @@ struct CustomImageView: View {
     }
 }
 
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MainView()
-//    }
-//}
 

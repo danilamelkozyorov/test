@@ -10,29 +10,30 @@ import Combine
 import SwiftUI
 
 final class JournalViewModel: ObservableObject {
+    let currentMonth = "june"
     
     @Published var months = ["June", "May", "April", "March", "February", "January"]
     @Published var currentMonthJournal = [JournalRowViewModel]()
     
     private var cancellableSet: AnyCancellable?
-    let currentMonth = "june"
-    
-    var isToday: Bool = false
+    private var isToday: Bool = false
     
     func fetchListJournal(_ month: String) {
-        cancellableSet = APIManager.shared.fetchData(for: month).sink(receiveValue: { [weak self] journalModel in
-            guard let strongSelf = self else { return }
-            strongSelf.currentMonthJournal = (journalModel.data?.getJournalingHome?.message
-                .filter {
-                    strongSelf.isToday = false
-                    if $0.date == Date().currentDateToString() {
-                        strongSelf.isToday = true
+        cancellableSet = APIManager.shared.fetchData(for: month).sink(
+            receiveValue: { [weak self] journalModel in
+                guard let strongSelf = self else { return }
+                strongSelf.currentMonthJournal = (journalModel.data?.getJournalingHome?.message
+                    .filter {
+                        strongSelf.isToday = false
+                        if $0.date == Date().currentDateToString() {
+                            strongSelf.isToday = true
+                        }
+                        return $0.dailyScore != nil || strongSelf.isToday
                     }
-                    return $0.dailyScore != nil || strongSelf.isToday
-                }
-                .reversed()
-                .map { JournalRowViewModel($0) }) ?? [JournalRowViewModel]()
-        })
+                    .reversed()
+                    .map { JournalRowViewModel($0) }) ?? [JournalRowViewModel]()
+            }
+        )
     }
 }
 
@@ -40,10 +41,7 @@ struct JournalRowViewModel: Hashable {
     private let message: Message
     
     var isToday: Bool {
-        if  message.date == Date().currentDateToString() {
-            return true
-        }
-        return false
+        return message.date == Date().currentDateToString() ? true : false
     }
     
     var dayOfMonth: String? {
